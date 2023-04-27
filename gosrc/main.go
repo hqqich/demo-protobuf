@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"google.golang.org/protobuf/proto"
 	"gosrc/protos"
 )
 
@@ -14,6 +15,9 @@ func main() {
 		Length:  12,
 		Cnt:     10,
 	}
-	fmt.Println(info.Message)
+
+	var marshal, _ = proto.Marshal(&info)
+
+	fmt.Println(marshal)
 
 }

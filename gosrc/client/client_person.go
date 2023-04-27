@@ -14,7 +14,7 @@ import (
 )
 
 func main() {
-	strIP := "127.0.0.1:9999"
+	strIP := "127.0.0.1:7788"
 	var conn net.Conn
 	var err error
 
