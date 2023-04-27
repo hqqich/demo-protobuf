@@ -1,0 +1,11 @@
+//用哪个版本语法，
+syntax = "proto2";
+package org.example;
+
+option java_outer_classname = "StudentBean";
+
+message Student {
+  required string name = 1;
+  required int32 age = 2;
+  optional string gender = 3;
+}
