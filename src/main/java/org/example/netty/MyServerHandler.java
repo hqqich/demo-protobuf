@@ -1,6 +1,7 @@
 package org.example.netty;
 
 import io.netty.buffer.ByteBuf;
+import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import io.netty.util.ReferenceCountUtil;
@@ -29,16 +30,32 @@ public class MyServerHandler extends ChannelInboundHandlerAdapter {
             byte[] bytes = new byte[buf.readableBytes()];
             buf.readBytes(bytes);
 
-            logger.info("{} 接受到消息： {}", LocalDateTime.now(), new String(bytes, Charset.forName("GBK")));
 
-            //从输入流中解析出Person对象
-            Person person = Person.parseFrom(bytes);
-            if (person != null) {
-                System.out.println("server received data:\n" + person.toString());
+
+            try {
+                // 从输入流中解析出Person对象
+                Person person = Person.parseFrom(bytes);
+                if (person != null) {
+                    System.out.println("接受到数据===========:\n" + person.toString());
+                }
+            } catch (Exception e) {
+                logger.info("{} 接受到消息： {}", LocalDateTime.now(), new String(bytes, Charset.forName("GBK")));
             }
+
+
+            //本文唯一值得注意的就是这里，下文会阐述
+            // 必须这么写，不然将会造成无法给客户端返回信息的情况，我也不清楚是为什么。。。。既然writeAndFlush方法接收Object类型，那么为什么必须要传递ByteBuf才可以呢?
+            ByteBuf result = Unpooled.copiedBuffer("bbbb".getBytes());
+            ctx.write(result);
+
+
+            ctx.flush();
+
 
         } finally {
             ReferenceCountUtil.release(msg);
+            // 如果写在这里，相当于一应一答，回完一次消息就断开
+            //ctx.close();
         }
 
 
@@ -47,6 +64,7 @@ public class MyServerHandler extends ChannelInboundHandlerAdapter {
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
         cause.printStackTrace();
+        // 写在这里是连接断开，就结束
         ctx.close();
     }
 }
