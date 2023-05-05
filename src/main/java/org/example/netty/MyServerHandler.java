@@ -43,9 +43,9 @@ public class MyServerHandler extends ChannelInboundHandlerAdapter {
             }
 
 
-            //本文唯一值得注意的就是这里，下文会阐述
+            // 注意的这里
             // 必须这么写，不然将会造成无法给客户端返回信息的情况，我也不清楚是为什么。。。。既然writeAndFlush方法接收Object类型，那么为什么必须要传递ByteBuf才可以呢?
-            ByteBuf result = Unpooled.copiedBuffer("bbbb".getBytes());
+            ByteBuf result = Unpooled.copiedBuffer("bbbbb".getBytes());
             ctx.write(result);
 
 

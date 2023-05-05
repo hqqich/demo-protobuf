@@ -19,11 +19,11 @@ public class MyChannelInitializer extends ChannelInitializer<SocketChannel> {
     @Override
     protected void initChannel(SocketChannel socketChannel) throws Exception {
 
-        logger.info("链接报告开始");
-        logger.info("链接报告信息：有一客户端链接到本服务端");
-        logger.info("链接报告IP:" + socketChannel.localAddress().getHostString());
-        logger.info("链接报告Port:" + socketChannel.localAddress().getPort());
-        logger.info("链接报告完毕");
+        //logger.info("链接报告开始");
+        //logger.info("链接报告信息：有一客户端链接到本服务端");
+        //logger.info("链接报告IP:" + socketChannel.localAddress().getHostString());
+        //logger.info("链接报告Port:" + socketChannel.localAddress().getPort());
+        //logger.info("链接报告完毕");
 
         // 处理消息写在这
         socketChannel.pipeline().addLast(new MyServerHandler());
