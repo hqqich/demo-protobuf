@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"google.golang.org/protobuf/proto"
 	stProto "gosrc/protos"
-	"io/ioutil"
+	"io"
 	"net"
 	"os"
 	"strconv"
@@ -69,8 +69,8 @@ func two() {
 				Phones: phoneNumberSlice,
 			}
 
-			//protobuf编码
-			pData, err := proto.Marshal(stSend)
+			//protobuf编码，编完的是一个 []byte 类型
+			var pData, err = proto.Marshal(stSend)
 			if err != nil {
 				panic(err)
 			}
@@ -81,9 +81,10 @@ func two() {
 	}
 
 	var (
-		all, _ = ioutil.ReadAll(conn)
+		all, _ = io.ReadAll(conn)
 	)
 	fmt.Println(all)
+	fmt.Println(string(all))
 
 }
 

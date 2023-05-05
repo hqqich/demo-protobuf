@@ -55,7 +55,7 @@ public class MyServerHandler extends ChannelInboundHandlerAdapter {
         } finally {
             ReferenceCountUtil.release(msg);
             // 如果写在这里，相当于一应一答，回完一次消息就断开
-            //ctx.close();
+            ctx.close();
         }
 
 
@@ -65,6 +65,6 @@ public class MyServerHandler extends ChannelInboundHandlerAdapter {
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
         cause.printStackTrace();
         // 写在这里是连接断开，就结束
-        ctx.close();
+        //ctx.close();
     }
 }
