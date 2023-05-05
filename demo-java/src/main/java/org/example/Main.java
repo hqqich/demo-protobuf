@@ -1,7 +1,8 @@
 package org.example;
 
-import java.io.FileOutputStream;
 import java.io.OutputStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import org.example.protobuf.Person;
 
 public class Main {
@@ -29,7 +30,7 @@ public class Main {
     byte[] bytes = person.toByteArray();
 
     //byte[] imgbyte = decoder.decodeBuffer("刚刚将字节数组转成的字符串");
-    OutputStream os = new FileOutputStream("C:\\Users\\Administrator\\Desktop\\data\\person");
+    OutputStream os = Files.newOutputStream(Paths.get("C:\\Users\\Administrator\\Desktop\\data\\person"));
     os.write(bytes, 0, bytes.length);
     os.flush();
     os.close();
