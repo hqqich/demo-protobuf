@@ -4,6 +4,7 @@ import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import org.example.protobuf.Person;
+import org.example.protobuf.PersonList;
 
 public class Main {
 
@@ -18,6 +19,13 @@ public class Main {
                 .setNumber("010-1234567")
                 .setType(Person.PhoneType.HOME))
         .build();
+
+    //PersonList personList = new PersonList();
+
+    PersonList build = PersonList.newBuilder()
+            .addPerson(person)
+            .addPerson(person)
+            .addPerson(person).build();
 
   /*
     序列化：

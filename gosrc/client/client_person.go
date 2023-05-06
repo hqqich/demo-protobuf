@@ -15,13 +15,7 @@ import (
 	//"github.com/gogo/protobuf/proto"
 )
 
-func main() {
-
-	two()
-
-}
-
-func two() {
+func clientPerson() {
 	strIP := "127.0.0.1:7788"
 	var conn net.Conn
 	var err error

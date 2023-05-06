@@ -25,7 +25,17 @@ public class MyChannelInitializer extends ChannelInitializer<SocketChannel> {
         //logger.info("链接报告Port:" + socketChannel.localAddress().getPort());
         //logger.info("链接报告完毕");
 
+
+        //socketChannel.pipeline().addLast(new LengthFieldBasedFrameDecoder(Integer.MAX_VALUE,4,4,-8,0));
+
+        //protobuf 处理
+        //socketChannel.pipeline().addLast(new ProtobufVarint32FrameDecoder());
+        //socketChannel.pipeline().addLast(new ProtobufDecoder(PersonList.getDefaultInstance()));
+        //socketChannel.pipeline().addLast(new ProtobufVarint32LengthFieldPrepender());
+        //socketChannel.pipeline().addLast(new ProtobufEncoder());
+
         // 处理消息写在这
+        //socketChannel.pipeline().addLast("SplDecoder", new SplDecoder());
         socketChannel.pipeline().addLast(new MyServerHandler());
 
     }
