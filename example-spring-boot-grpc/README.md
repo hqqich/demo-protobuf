@@ -6,36 +6,68 @@ gRPC 是Google发起的一个开源远程过程调用 系统。该系统基于HT
 
 **简单来说就是，基于Protocol Buffers通信协议的RPC框架**
 
-#### 支持的客户端语言
-
--   Android
-    
--   C#
-    
--   C++
-    
--   Dart
-    
--   Go
-    
--   Java
-    
--   Objective-C
-    
--   PHP
-    
--   Python
-    
--   Ruby
-    
--   Web
-
+### 生成，使用的是 java-grpc 模块的组建
 
 ### 运行
 
-1. 导入IDEA
-2. 执行gradle generateProto
-3. 启动ExampleGrpcApplication
-4. 访问http://localhost:8080/
+#### 使用spring启动Grpc服务
+```java
+@Component
+public class GrpcServerStartupRunner implements ApplicationRunner {
 
-查看控制台
+    @Override
+    public void run(ApplicationArguments args) throws Exception {
+        ServerBuilder serverBuilder = ServerBuilder
+                .forPort(8081)
+                .addService(new HelloServiceImpl());
+
+        Server server = serverBuilder.build();
+        serverBuilder.intercept(TransmitStatusRuntimeExceptionInterceptor.instance());
+        server.start();
+        startDaemonAwaitThread(server);
+    }
+
+    private void startDaemonAwaitThread(Server server) {
+        Thread awaitThread = new Thread(() -> {
+            try {
+                server.awaitTermination();
+            } catch (InterruptedException ignore) {
+
+            }
+        });
+        awaitThread.setDaemon(false);
+        awaitThread.start();
+    }
+}
+```
+
+#### 客户端
+```java
+@SpringBootApplication
+@RestController
+public class ExampleGrpcApplication {
+
+    public static void main(String[] args) {
+        SpringApplication.run(ExampleGrpcApplication.class, args);
+    }
+
+    @GetMapping("/")
+    public ResponseEntity test() {
+        ManagedChannel channel = ManagedChannelBuilder.forAddress("127.0.0.1", 8081)
+                .usePlaintext()
+                .build();
+        Stopwatch stopwatch = Stopwatch.createStarted();
+        HelloServiceGrpc.HelloServiceBlockingStub stub = HelloServiceGrpc.newBlockingStub(channel);
+
+        HelloResponse helloResponse = stub.hello(HelloRequest.newBuilder()
+                .setFirstName("Ga0x")
+                .setLastName("gRPC")
+                .build());
+        System.out.println(stopwatch.stop());
+        System.out.println("Response received from server:\n" + helloResponse);
+
+        channel.shutdown();
+        return ResponseEntity.ok(helloResponse.getGreeting());
+    }
+}
+```

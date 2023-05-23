@@ -23,8 +23,7 @@ public class ExampleGrpcApplication {
                 .usePlaintext()
                 .build();
         Stopwatch stopwatch = Stopwatch.createStarted();
-        HelloServiceGrpc.HelloServiceBlockingStub stub
-                = HelloServiceGrpc.newBlockingStub(channel);
+        HelloServiceGrpc.HelloServiceBlockingStub stub = HelloServiceGrpc.newBlockingStub(channel);
 
         HelloResponse helloResponse = stub.hello(HelloRequest.newBuilder()
                 .setFirstName("Ga0x")

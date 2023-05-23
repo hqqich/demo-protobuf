@@ -101,7 +101,7 @@ public final class HelloServiceGrpc {
     /**
      */
     public void hello(Person request,
-        io.grpc.stub.StreamObserver<PersonResponse> responseObserver) {
+                      io.grpc.stub.StreamObserver<PersonResponse> responseObserver) {
       asyncUnimplementedUnaryCall(getHelloMethod(), responseObserver);
     }
 
@@ -135,7 +135,7 @@ public final class HelloServiceGrpc {
     /**
      */
     public void hello(Person request,
-        io.grpc.stub.StreamObserver<PersonResponse> responseObserver) {
+                      io.grpc.stub.StreamObserver<PersonResponse> responseObserver) {
       asyncUnaryCall(
           getChannel().newCall(getHelloMethod(), getCallOptions()), request, responseObserver);
     }

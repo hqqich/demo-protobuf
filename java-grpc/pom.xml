@@ -62,10 +62,12 @@
 
           <!-- proto文件目录 -->
 <!--          <protoSourceRoot>F:/project/java/demo-protobuf/protoc</protoSourceRoot>-->
-          <protoSourceRoot>F:\project\java\demo-protobuf\java-grpc\src\main\proto\</protoSourceRoot>
+<!--          <protoSourceRoot>F:\project\java\demo-protobuf\java-grpc\src\main\proto\</protoSourceRoot>-->
+          <protoSourceRoot>/Users/hqqich/IdeaProjects/java/demo-protobuf/java-grpc/src/main/proto/</protoSourceRoot>
 <!--          <protoSourceRoot>F:\project\java\demo-protobuf\example-spring-boot-grpc\src\main\proto\</protoSourceRoot>-->
           <!-- 生成的Java文件目录 -->
-          <outputDirectory>F:/project/java/demo-protobuf/out/</outputDirectory>
+<!--          <outputDirectory>F:/project/java/demo-protobuf/out/</outputDirectory>-->
+          <outputDirectory>/Users/hqqich/IdeaProjects/java/demo-protobuf/out/</outputDirectory>
           <clearOutputDirectory>false</clearOutputDirectory>
           <!--<outputDirectory>${project.build.directory}/generated-sources/protobuf</outputDirectory>-->
         </configuration>
