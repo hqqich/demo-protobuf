@@ -20,6 +20,9 @@
     <module>demo-java</module>
     <module>demo-kotlin</module>
     <module>springboot-web</module>
+    <module>java-grpc</module>
+    <module>example-spring-boot-grpc</module>
+    <module>spring-boot-grpc</module>
   </modules>
 
   <dependencies>

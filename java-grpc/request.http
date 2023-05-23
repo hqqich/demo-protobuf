@@ -1,0 +1,2 @@
+### 直接吊，不传参数
+GRPC 127.0.0.1:9091/org.example.proto.HelloService/hello
