@@ -1,10 +1,12 @@
 package org.springboot.controller;
 
+import com.google.gson.Gson;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.Base64;
 import javax.servlet.http.HttpServletRequest;
 import org.example.protobuf.Person;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -83,4 +85,14 @@ public class ProtobufController {
 								.setType(Person.PhoneType.HOME));
 		return Base64.getEncoder().encodeToString(builder.build().toByteArray());
 	}
+
+
+
+	// 这个使用不了
+	@RequestMapping("/test2")
+	public String test2(@RequestBody Person person) {
+
+		return new Gson().toJson(person);
+	}
+
 }
